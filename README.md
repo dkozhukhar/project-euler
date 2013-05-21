@@ -1,35 +1,10 @@
-# project-euler
+# About
 
-FIXME: description
+This project is my solutions to project euler problems in clojuire. 
 
-## Installation
+Solved 17 problems so far.
 
-Download from http://example.com/FIXME.
 
-## Usage
+# Usage
 
-FIXME: explanation
-
-    $ java -jar project-euler-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2013 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
+All source code is in core.clj. Most solutions come as a single form. 
