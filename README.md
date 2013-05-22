@@ -1,17 +1,14 @@
 ## About
 
-This project is my solutions to project euler problems in clojuire. 
-
-Solved 18 problems so far.
-
+This project is a collection of my solutions on project euler problems written in clojuire.
 
 ## Safety
 
-Beware of spoilers. Some problems are really nice. One can spend pleasent moments solving em and exploring the math behind.
+Beware of spoilers. There are lots of insightful math behind each problem, don't spoil the pleasant time of exploration.
 
 ## Usage
 
-Project do not intend to do something after compile. Most solutions come as a single form.  Code can be used someway else e.g. in repl. Code can be found at project-euler / src / project_euler / core.clj. 
+Project do not intend to do something when run. I hope code structure is self explanatory.
 
 
 
