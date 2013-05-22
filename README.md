@@ -2,7 +2,7 @@
 
 This project is my solutions to project euler problems in clojuire. 
 
-Solved 17 problems so far.
+Solved 18 problems so far.
 
 
 ## Safety
