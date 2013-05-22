@@ -1,4 +1,6 @@
 ; problems 3-18 here
+; next problemes moved to separate files p19 .. pNN
+
 (ns project-euler.core
   (:gen-class)
   (:require
