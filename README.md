@@ -4,7 +4,8 @@ This project is my solutions to project euler problems in clojuire.
 
 Solved 17 problems so far.
 
-![Image](http://projecteuler.net/profile/Rijk.png)
+
+![My project euler progress](http://projecteuler.net/profile/Rijk.png)
 
 ## Safety
 
