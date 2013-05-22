@@ -5,8 +5,6 @@ This project is my solutions to project euler problems in clojuire.
 Solved 17 problems so far.
 
 
-![My project euler progress](http://projecteuler.net/profile/Rijk.png)
-
 ## Safety
 
 Beware of spoilers. Some problems are really nice. One can spend pleasent moments solving em and exploring the math behind.
