@@ -16,7 +16,7 @@
 (defn d [n] (apply + (primes/proper-divisors n)))
 
 (def amicables
-  (for [x (range 1 10001)
+  (for [x (range 1 10000)
         :when (not= x (d x))
         :when (= x (d (d x)))
         ]
