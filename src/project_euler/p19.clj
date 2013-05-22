@@ -21,7 +21,8 @@
 
 (def y-m-d
   "Just cann't stop myself of making a big list ...
-  ([1901 :jan 1] [1901 :jan 2] [1901 :jan 3] [1901 :jan 4] [1901 :jan 5]  and so on"
+  ([1900 :jan 1] [1900 :jan 2] [1900 :jan 3] [1900 :jan 4] [1900 :jan 5]  and so on
+  "
  (apply concat
  (apply concat
   (for [year (range 1900 2001)]
@@ -48,7 +49,7 @@
 (println
 (let [days [:mon :tu :we :th :fr :sa :su]
       md (map conj y-m-d (cycle days) )
-      check (fn [[y m d w]] (and (= d 1) (= w :su) (not= y 1900)))]
+      check (fn [[y m d w]] (and (= d 1) (= w :su) (not= y 1900)))] ;filter out 1900
 
   (count (filter check md))
   ;(filter check md)
