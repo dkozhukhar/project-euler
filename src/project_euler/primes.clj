@@ -144,3 +144,25 @@
                 (lazy-seq (next-primes (next-sieve sieve candidate)
                             (+ candidate 2))))))]
     (cons 2 (lazy-seq (next-primes {} 3)))))
+
+
+
+
+(defn proper-divisors
+    [n]
+  (cons 1 ; 1 is a proper divisor too
+    (apply concat
+     (for [d (range 2 (inc (max-divisor n)))
+           :when (= 0 (rem n d))]
+       (if (= d (quot n d)) `(~d) `(~d ~(quot n d))) ; check to remove dublicates if d*d=n
+       ))))
+
+
+
+
+
+
+
+
+
+
