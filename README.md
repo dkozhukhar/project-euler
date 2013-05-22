@@ -11,7 +11,7 @@ Beware of spoilers. Some problems are really nice. One can spend pleasent moment
 
 ## Usage
 
-All source code is in core.clj. Most solutions come as a single form. 
+Project do not intend to do something after compile. Most solutions come as a single form.  Code can be used someway else e.g. in repl. Code can be found at project-euler / src / project_euler / core.clj. 
 
 
 
