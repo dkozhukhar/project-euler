@@ -11,3 +11,6 @@ Beware of spoilers. Some problems are really nice. One can spend pleasent moment
 ## Usage
 
 All source code is in core.clj. Most solutions come as a single form. 
+
+
+![Image](http://projecteuler.net/profile/Rijk.png)
