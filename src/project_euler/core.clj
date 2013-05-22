@@ -1,3 +1,4 @@
+; problems 3-18 here
 (ns project-euler.core
   (:gen-class)
   (:require
@@ -494,7 +495,7 @@
 
 (def res-out* (take 21 res))
 
-(time (dorun (map println res-out*)));prints paskals triangle in rectangular form, the last number is an answer
+;(time (dorun (map println res-out*)));prints paskals triangle in rectangular form, the last number is an answer
 ; => 137846528820
 
 ;(require 'clojure.pprint)
@@ -505,7 +506,7 @@
 
 (def res2 (/ (fac 40N) (fac 20N) (fac 20N)) ); calculates C-40-20-20, which is element in paskal triangle
 
-(time (println res2))
+;(time (println res2))
  ; => 137846528820
 
 ;Power digit sum
