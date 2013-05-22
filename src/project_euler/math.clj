@@ -72,5 +72,4 @@
    (cons n (lazy-seq (collatz-seq (collatz n)))))))
 
 
-;(time (count (collatz-seq 837799)))
-
+(time (count (collatz-seq 837799)))
