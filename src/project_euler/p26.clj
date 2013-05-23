@@ -22,42 +22,40 @@
 
 
 (defn test-prime-cycle [p]
-  (let [nn (filter  #(= 0 (rem % p))
-              (take 1000  ; limit for safaty reasons
-                 (iterate #(+ 9 (* 10 %)) 9N)))   ]
-    (count (str (first nn)))
-    ))
+  "it makes use of fact that [cycle] * d = 999....9999
+  i check d to be prime, or else it is not biutuful :)"
+  (if
+    (or (= 2 p) (= 5 p))
+    0
+    (let [nn (filter  #(= 0 (rem % p))
+                   (iterate #(+ 9 (* 10 %)) 9N))]
+      (count (str (first nn)))
+      )))
 
 
-(test-prime-cycle 983)
 
 (println (reduce
           (fn [[a l] b]
             (if (> l (test-prime-cycle b)) [a l] [b (test-prime-cycle b)]))
              [1 0]
-          (range 1 1000) ))
+          (primes/primes3 1000) ))
 ;=>983
 
 
-; but what cycle has it, and what cycles has other numbers with long cycles?
-(test-prime-cycle 7)
-(/ 999999 7)
-
 
 (defn find-prime-cycle [p]
-  (let [nn (filter  #(= 0 (rem % p))
-              (take 1000
-                 (iterate #(+ 9 (* 10 %)) 9N)))   ]
-    (/ (first nn) p)
+  "lets see how the cycle looks like"
+  (if
+    (or (= 2 p) (= 5 p))
+    0
+    (let [nn (filter  #(= 0 (rem % p))
+                   (iterate #(+ 9 (* 10 %)) 9N))  ]
+      (/ (first nn) p))
     ))
 
-
 (println
-  (find-prime-cycle 577))
-
-(println
- (filter  #(< 400 (test-prime-cycle %)) (range 1 1000) ))
+ (filter  #(< 400 (test-prime-cycle %)) (primes/primes3 1000) ))
 
 (println
  (map #(find-prime-cycle %)
-      (filter  #(< 100 (test-prime-cycle %)) (range 1 1000) )))
+      (filter  #(< 100 (test-prime-cycle %)) (primes/primes3 1000) )))
