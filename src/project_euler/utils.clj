@@ -15,6 +15,13 @@
   (- t 48))))
 
 
+
+(defn digits [n]
+  "convert number to vector of its digits"
+   (map  char-to-int (vec (str n))))
+
+
+
 (defn map2 [f coll2]
 "maps function f in nested collection coll2
 example:
