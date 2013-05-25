@@ -1,6 +1,7 @@
 (ns project-euler.p35
       (:require
              [project-euler.primes  :as primes]
+             [project-euler.utils  :as utils]
      )
 
 )
@@ -24,13 +25,18 @@
         (cons (peek s0) (pop s0))
       ))))
 
+(defn pre-check [n]
+  (if (< n 10) true
+   (not
+    (some #{0 2 4 5 6 8} (utils/digits n)))))
 
 (defn circular-prime? [n]
- (every? identity
-  (map primes/prime?
-    (rest
-       (take    (count (str n))   (iterate rot n))
-    ))))
+ (when (pre-check n)
+  (every? identity
+   (map primes/prime?
+     (rest
+        (take    (count (str n))   (iterate rot n))
+         )))))
 
 (time
   (println
