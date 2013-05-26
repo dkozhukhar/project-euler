@@ -26,3 +26,22 @@
 
 
 (def palindrome? fair?)
+
+
+(defn mirrored-string? [s]
+  "checks string for being mirrored"
+    (loop [cur-num s]
+    (let
+      [len (.length cur-num)
+       f (first cur-num)
+       l (last cur-num)
+       is-good? (= f l)
+       finish? (< len 3)]
+      (cond
+       (not is-good?) false
+       (and finish? is-good?) true
+       :else
+         (recur
+              (subs cur-num 1 (- len 1)))))))
+
+
