@@ -40,3 +40,17 @@ example:
   (reduce f1 (map f2 coll)))
 
 
+; this one comes from problem 39
+(defn fred [g? [a0 fa0] f [a & bcd]]
+  "Functional reducer
+  apply f on collection, returns collection element ai with the highest value f(ai)
+  g? is a binary compare function
+  (fred > [0 1] inc [1 2 3 4]) ; => 4"
+  (if
+    (nil? a)
+        a0
+        (if
+          (g? (f a) fa0)
+            (fred g? [a (f a)] f bcd)
+            (fred g? [a0 fa0]  f bcd))))
+
