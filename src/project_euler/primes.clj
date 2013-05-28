@@ -7,6 +7,9 @@
 ;(import 'math.numeric-tower)
 
 
+; usege
+;   (:require [project-euler.primes  :as primes])
+
 
 
 (defn possible-primes-diapozone [n]
