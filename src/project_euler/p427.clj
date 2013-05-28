@@ -19,36 +19,12 @@
 (defn S? [n m]
   (combo/selections (range 1 (inc m)) n))
 
-(println  (S? 4 2))
-
-
 (defn GS? [n m]
     (map
      (fn [s]
        (->> s
             (partition-by identity)))
      (S? n m)))
-
-(time (println (GS? 2 3)))
-
-; (1)
-; ---
-; (1) -> (1 2)
-; (1) -> (1 1)
-; ---    -----
-; (1) -> (1 2) -> (1 2 1)
-; (1) -> (1 2) -> (1 2 2)
-; (1) -> (1 2) -> (1 2 3)
-;
-; (1) -> (1 1) -> (1 1 1)
-; (1) -> (1 1) -> (1 1 2)
-; (1) -> (1 1) -> (1 1 3)
-; ---    -----    -------
-; (1) -> (1 2) -> (1 2 1) -> (1 2 1 1)
-; (1) -> (1 2) -> (1 2 1) -> (1 2 1 2)
-; (1) -> (1 2) -> (1 2 1) -> (1 2 1 3)
-; (1) -> (1 2) -> (1 2 1) -> (1 2 1 4)
-
 
 (defn MS? [n m]
   "Longest subsequences for n-sequence"
@@ -60,71 +36,50 @@
             (apply max )))
      (S? n m)))
 
-(defn ms? [s]
-  "max count for subsequences s"
-       (->> s
-            (partition-by identity)
-            (map count )
-            (apply max )))
+(defn f [n]
+  (apply + (MS? n n)))
 
 
 
-(println (MS? 2 2))
-
-(println (group-by identity (MS? 2 2)))
-
-(println (frequencies (MS? 3 3)))
-
-; f_1_u1: u_1
-
-; f_1_u2: f_1_u1 * (u_2 - 1)  *  u_2       =  1 * 1 * 2 = 2
-; f_2_u2: u_2                              =          2
-
-; f_1_u3: f_1_u2 * (u3-1)  *  u_3              = 2 * 2 * 3            = 12
-; f_2_u3: f_2_u2 * (u3-2)  *  u_3 + f_1_u2     = 2 * 1 * 3   +  2     = 8 ???
-; f_3_u3: u_3                                  =                        3
-
-(println (map #(conj % 2) (S? 1 1)))
+(defn pow [a n]
+  (if (nil? n) 1 (apply * (repeat n a))))
 
 
-(println  (group-by ms? (S? 3 3)))
 
-(println  (S? 1 2))
+(defn lens [s]
+  (->> s
+     (partition-by identity)
+     (filter #(= \k (first %)))
+     (map count)
+     (apply max 0)
+     inc
+  ))
 
-(println (MS? 4 2))
-
-(println (group-by identity (MS? 1 2)))
-
-(println (frequencies (MS? 3 3)))
-
-(let [dim 7 size 2]
-  (do
-    (println
-       "S?" (S? dim size) "\n"
-       "MS?" (MS? dim size) "\n"
-       "ms?" (group-by ms? (S? dim size)) "\n"
-       "freq MS?" (frequencies (MS? dim size)) "\n"
-  )))
+(defn cns [s]
+  (let [c (count s)
+        cs ((frequencies s) \s)
+        ck ((frequencies s) \k)]
+  [(* 1N (inc c) (pow c cs)) (lens s)]
+  ))
 
 
-(defn unsymS1 [lvl] ;Cmv = 1
-  (if (= lvl 1) 1
-    (unsymS1 (dec lvl))))
-
-(unsymS1 7)
-
-(defn unsymS2 [mxm cmv lvl] ; cmv=1, mxmv=1
-  (cond
-     (= lvl 1)
-       (if (= mxm 2) 1 0)
-     (= cmv 1)
-         (+
-          (unsymS2     2         2       (dec lvl))
-          (unsymS2 (max mxm 1)   1       (dec lvl)))
-     (= cmv 2)
-          (unsymS2    2     1          (dec lvl))
-     (> cmv 2)  0 ; failed
-   ))
+(defn ks [a]
+  `(~(str "k" a) ~(str "s" a)))
 
 
-(println (unsymS2 1 1 7))
+
+(defn ksm [l] (flatten (map ks l)))
+
+(time
+  (println
+     (->> '("")
+         (iterate ksm)
+         (drop 2) ;f(11) = 481496895121.
+         (first)
+
+         (map cns)
+ )))
+
+
+
+(quot (* 7500000 7500000)  1000000009)
