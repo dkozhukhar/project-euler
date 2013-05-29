@@ -1,9 +1,5 @@
 (ns project-euler.p50
-   (:require [project-euler.primes  :as primes])
-
-  )
-
-
+   (:require [project-euler.primes  :as primes]))
 
 ;Consecutive prime sum
 ;Problem 50
@@ -16,32 +12,41 @@
 
 ;Which prime, below one-million, can be written as the sum of the most consecutive primes?
 
-(time
-(println
- (count
- (map (set (primes/primes3 1000000)) (range 2 10000000)))))
 
 
-(time
- (println
-  (let [pp (apply sorted-set (primes/primes3 10000))
-        yp (filter #(< % 1000) pp)]
-     (reduce
-      (fn [[a b][c d]] (if (> c a) [c d] [a b]))
-      [1 0]
-          (for [p yp
-            :let [pp* (filter #(>= % p) pp)
-                  mpl (quot 10000 p)]]
-             (reduce
-                (fn [[a b][c d]] (if (> c a) [c d] [a b]))
-                [1 0] (for [rp (range 1 mpl)
-                            :let [p* (take rp pp*)
-                                  p*s (count p*)
-                                  s* (reduce + p*)]
-                            :when (not (nil? (pp s*)))]
-                    [p*s s*]))
-            ;    [:p p :pp* pp* :mpl mpl :rp rp :p* p*  :p*s p*s :s* s*]
-      )))))
+(defn gs [n]
+(loop [
+  coll (drop n (primes/lazy-primes3))
+  limit 1000000
+  sum 0
+  pcount 0
+  psumcnt 0
+  res '()]
+      (cond
+       (> (+ sum (first coll)) limit)            [psumcnt res]
+       ;(empty? coll)                            [sum (count res) res]
+       (primes/prime? (+ sum (first coll)))
+          (recur 
+            (drop 1 coll) 
+            limit 
+            (+ sum (first coll))
+            (inc pcount)
+            (inc pcount) ; count largest prime streak
+            (+ sum (first coll))
+            ) ; logs prime prime streak sums
+       :else
+          (recur 
+              (drop 1 coll) 
+              limit 
+              (+ sum (first coll))
+              (inc pcount)
+              psumcnt
+              res)
+          )
+      ))
 
+(reduce (fn [[l1 p1] [l2 p2]] (if (> l2 l1) [l2 p2] [l1 p1]))
+          (map gs (range 10)))
 
+; 997651 - 543
 
