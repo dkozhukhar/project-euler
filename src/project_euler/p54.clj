@@ -4,15 +4,12 @@
 (def games
  (map #(clojure.string/split % #"[ ]")
            (clojure.string/split-lines
-"8C TS KC 9H 4S 7D 2S 5D 3S AC
-5C AD 5D AC 9C 7C 5H 8D TD KS
-3H 7H 6S KC JS QH TD JC 2D 8S"
+(slurp "http://projecteuler.net/project/poker.txt")
  )))
 
 
 
 (defn suit [card]   (subs card 1 2))
-
 
 
 (defn rank [card]
@@ -25,42 +22,65 @@
     (read-string (subs card 0 1))))
 
 
-(defn pw [n] (reduce * (repeat n 10)))
-
+(defn srt-ranks [ranks]
+ (let [my-map (frequencies ranks )]
+  (into (sorted-map-by (fn [key1 key2] ;sorts a map by value
+                         (compare [(get my-map key2) key2]
+                                  [(get my-map key1) key1])))
+        my-map)))
 
 (defn scores [ranks]
-;(scores [8 10 12 9 10 ]) 
-(reverse
- (sort
-(map 
- (fn [[r n]] (+ r (pw n)))
- (into []
-      (frequencies ranks))))))
+  (let [scr
+         (frequencies ranks)
+      scrv (sort (vals scr))
+      scrvec (into [] scr)
+      sr (into [] (srt-ranks ranks))
+      ]
+  (cond
+   (= scrv '(2 3)) [7 sr]
+   (= scrv '(1 1 3)) [4 sr]
+   (= scrv '(1 4)) [8 sr]
+   (= scrv '(1 2 2)) [3 sr]
+   (= scrv '(1 1 1 2)) [2 sr]
+   (= scrv '(1 1 1 1 1)) [1 sr]
+   )))
 
 
 
-(let [cards ["8C" "TS" "KC" "9H" "4S"]
-      samesuit (apply = (map suit cards))
-      allstraight (some identity (map #(= (sort (map rank cards))  %)  (partition 5 1 (range 2 15))))
+
+(defn combs [cards]
+  (let
+      [samesuit (apply = (map suit cards))
+      allstraight
+        (some identity
+              (map #(= (sort (map rank cards))  %)  (partition 5 1 (range 2 15))))
       ranks (sort (map rank cards))
-      groups (frequencies (map rank cards))]
+      groups (frequencies (map rank cards))
+      sr (into [] (srt-ranks ranks))
+       ]
      (cond
-      (and samesuit allstraight) ["straight flash" ranks]
-      samesuit ["flash" ranks]
-      allstraight ["straight" ranks]
-      :else ["other" ranks])
-)
+      (and samesuit allstraight) [9 sr]
+      samesuit [6 sr]
+      allstraight [5 sr]
+      :else (scores ranks)
+      )
+))
 
 
 
-(defn solve [game]
-  (let [player1 (take 5 game)
-        player2 (drop 5 game)
-        ]
-   player2))
+
+(println
+ (count
+ (filter #(= 1 %)
+  (map (fn [game]
+          (let [player1 (take 5 game)
+                player2 (drop 5 game)
+                ]
+         (compare
+            (combs player1)
+            (combs player2)) )
+               )
+   games))))
 
 
 
-(time
- (println
-  (map solve games)))
