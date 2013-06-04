@@ -25,10 +25,31 @@
     (read-string (subs card 0 1))))
 
 
+(defn pw [n] (reduce * (repeat n 10)))
 
-(for [s (group-by suit ["8C" "TS" "KC" "9H" "4S"])]
-  (map rank (second s)))
 
+(defn scores [ranks]
+;(scores [8 10 12 9 10 ]) 
+(reverse
+ (sort
+(map 
+ (fn [[r n]] (+ r (pw n)))
+ (into []
+      (frequencies ranks))))))
+
+
+
+(let [cards ["8C" "TS" "KC" "9H" "4S"]
+      samesuit (apply = (map suit cards))
+      allstraight (some identity (map #(= (sort (map rank cards))  %)  (partition 5 1 (range 2 15))))
+      ranks (sort (map rank cards))
+      groups (frequencies (map rank cards))]
+     (cond
+      (and samesuit allstraight) ["straight flash" ranks]
+      samesuit ["flash" ranks]
+      allstraight ["straight" ranks]
+      :else ["other" ranks])
+)
 
 
 
