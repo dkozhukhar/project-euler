@@ -42,6 +42,21 @@
                  (recur (inc divisor-position))))))))
 
 
+(defn trialPrime [n]
+  "tests n for being a prime by trial division"
+  (->> n
+       Math/sqrt
+       Math/floor
+       inc
+       (range 2)
+       (map #(mod n %))
+       (every? pos?)
+       ))
+
+
+
+
+
 (defn primes-range [& args]
   "filters all primes in a (range [& args])"
   (filter prime? (apply range args)))
