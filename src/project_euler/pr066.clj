@@ -73,6 +73,6 @@
             [d r n])
       first)
   )
- (apply max-key (fn [[a b c]] (numerator b)))
+ (sort-by (fn [[a b c]] (numerator b)))
 println
 time)
