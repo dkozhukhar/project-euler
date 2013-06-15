@@ -1,4 +1,6 @@
 (ns project-euler.p62)
+;Cubic permutations
+
 
 (defn tri [n] (* n n n))
 
