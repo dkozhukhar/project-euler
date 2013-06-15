@@ -27,40 +27,52 @@
 
 
 
-(defn converge-until [f coll]
-  (let [g (fn [heads tails] (if (f heads) (f heads) (g (conj heads (first tails)) (rest tails) ) ) )]
-   (g  [(first coll)] (rest coll))))
+'(defn converge-until [f coll]
+  (let [g (fn rg [heads tails]
+            (if (nil? (f heads))
+              (rg (conj heads (first tails)) (rest tails) )
+              (f heads) ) )]
+       (g  [(first coll)] (rest coll))
+    ))
 
 
-(->> 13
-     cfsqrt
-     unpack
-     (take 100)
-     converg
-     println
-     )
-
-(defn solve [fracs]
+'(defn solve [fracs]
      (converge-until
-         (fn [coll] (> (first coll) 0))
+         (fn [coll] (if (pos? (reduce + coll)) (reduce + coll)  nil))
       fracs))
 
-(converge-until solve [0 2 3])
+'(->> (converge-until solve [0 2 3]) println)
 
 
-(if (ratio? (converg coll))
+'(if (ratio? (converg coll))
                (let [r (converg coll)
                      d (denominator  r)
                      n (numerator  r)]
-                     (if (= (* d d) (inc (* n n 13)) ) [d n] false)) false))
+                     (if (= (* d d) (inc (* n n 13)) ) [d n] false)) false)
 
 
+(defn good-ratio? [r t]
+  (if (ratio? r)
+      (let [d (denominator  r)
+            n (numerator  r)]
+    (= (* n n) (inc (* d d t))))
+   false))
 
-(->> 13
-     cfsqrt
-     unpack
-     (take 100)
-
-     println
-     )
-
+;solution
+(->>
+(for [d (range 1 1001)
+      :let [fs (cfsqrt d)]
+      :when (> (count fs) 1)]
+    (->>
+      (for [n (drop 1 (range))
+            :let [fc (unpack fs)
+                  pf (take n fc)
+                  r (converg pf)]
+                  :when (good-ratio? r d)
+                                  ]
+            [d r n])
+      first)
+  )
+ (apply max-key (fn [[a b c]] (numerator b)))
+println
+time)
