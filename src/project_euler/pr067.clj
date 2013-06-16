@@ -19,10 +19,8 @@
           (->>
                (->>(concat [(first accum-route)] accum-route [(last accum-route)])
                    (partition 2 1 )
-                   (map #(apply max %))
-                 )
-                 (map + tmp-route)
-              )]
+                   (map #(apply max %)))
+               (map + tmp-route))]
     (if (empty? new-routes)
       (apply max new-accum-route)
       (recur new-accum-route (first new-routes) (rest new-routes)  ))
