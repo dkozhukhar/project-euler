@@ -13,7 +13,7 @@
 
 
 
-(time (println
+(def solve067
 (loop [accum-route (first triangle) tmp-route (second triangle) new-routes (drop 2 triangle)]
   (let [new-accum-route
           (->>
@@ -27,5 +27,6 @@
       (apply max new-accum-route)
       (recur new-accum-route (first new-routes) (rest new-routes)  ))
      )
-  )))
+  ))
 
+(time (println solve067))
