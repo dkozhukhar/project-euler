@@ -3,7 +3,7 @@
     [project-euler.primes  :as primes]))
 
 
-(def pt (take 800 (primes/lazy-primes3)))
+(def pt (take 600 (primes/lazy-primes3)))
 
 (last pt)
 
@@ -17,7 +17,7 @@
     (- (dec (* m1 m2))
        (dec m1))))
 
-(def solve070
+
 (->>
   (for [t1 pt
         t2 pt
@@ -30,8 +30,5 @@
     [t1 t2 n ph ra])
  (sort-by (fn [[x y a b c]] c))
  first
- ))
-
-(->> solve070
-     println
-     time)
+ println
+ time)
