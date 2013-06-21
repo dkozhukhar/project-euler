@@ -5,8 +5,8 @@
 
 ;pure force
 (->>
- (for [n (range 2 12001)
-       d (range  (int (inc (Math/floor (/ n 3)))) (int (Math/ceil (/ n 2))))
+ (for [n (range 5 12001)
+       d (range  (inc (quot n 3)) (inc (quot n 2)))
        ;:when (> n (* 2 d))
        ;:when (< n (* 3 d))
        :when (zero? (dec(math/gcd n d)))
