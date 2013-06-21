@@ -3,7 +3,7 @@
     [project-euler.primes  :as primes]
     [clojure.math.numeric-tower :as math]))
 
-
+;pure force
 (->>
  (for [n (range 2 12001)
        d (range  (int (inc (Math/floor (/ n 3)))) (int (Math/ceil (/ n 2))))
