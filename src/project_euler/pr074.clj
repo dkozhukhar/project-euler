@@ -19,14 +19,17 @@
  (reduce +)
   ))
 
+(def m-new-n (memoize new-n))
 
 (defn non-repeat-count [x]
 (->>
- (take 60 (iterate new-n x))
- distinct
+ (take 60 (iterate m-new-n x))
+ set
  count
  (= 60)
  ))
+
+
 
 
 (->> 1000000
