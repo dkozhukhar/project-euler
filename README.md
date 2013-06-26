@@ -1,6 +1,6 @@
 ## About
 
-This project is a collection of my solutions on project euler problems written in clojuire.
+This repo is a storage for my solutions to project euler problems. All of them written in clojuire.
 
 ## Safety
 
